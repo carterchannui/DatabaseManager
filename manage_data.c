@@ -1,3 +1,4 @@
+#define  _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +25,7 @@ char *remove_quotes(char *str)
     return str;
 }
 
-void load_ethnicity(Location location, ArrayList *list)
+void load_ethnicity(Location location, StringArrayList *list)
 {
     size_t i;
     // Declare j as the index of first index of ethnicity data in ArrayList list.
@@ -50,8 +51,9 @@ Location load_demographics(char *line)
 {
     Location location;
     size_t i;
-    // Remove comma delimter from current line.
-    ArrayList *list = split(line, ",");
+    // Remove comma delimiter from current line.
+    StringArrayList *list = split(line, ",");
+    
     for (i = 0; i < list->num_values; i++)
     {
         list->data[i] = remove_quotes(list->data[i]);
@@ -59,40 +61,50 @@ Location load_demographics(char *line)
 
     // Load county data.
     location.county = list->data[0];
+    // printf("County: %s\n", location.county);
     // Load state data.
     location.state = list->data[1];
+    // printf("    State: %s\n", location.state);
     // Load "Education.Bachelor's Degree or Higher" data.
     location.education[0] = strtof(list->data[5], NULL);
+    // printf("    Education.Bachelor's Degree or Higher: %f\n", location.education[0]);
     // Load "Education.High School or Higher" data.
     location.education[1] = strtof(list->data[6], NULL);
+    // printf("    Education.High School or Higher: %f\n", location.education[1]);
     // Load ethnicity data.
     load_ethnicity(location, list);
     // Load "Income.Median Houseold Income" data.
-    location->income[0] = atoi(list->data[25]);
+    location.median_household_income = atoi(list->data[25]);
     // Load "Income.Per Capita Income" data.
-    location->income[1] = atoi(list->data[26]);
+    location.per_capita_income = atoi(list->data[26]);
     // Load "Income.Persons Below Poverty Level" data.
-    location->income[2] = strtof(list->data[27], NULL);
+    location.persons_below_poverty_level = strtof(list->data[27], NULL);
     // Load population data.
     location.population = atoi(list->data[38]);
 
     return location;
 }
 
-void read_demographics(FILE * demographics)
+void read_demographics(FILE * demographics, LocationArrayList *list)
 {
     size_t len = 0;
     char *line = NULL;
+    size_t i;
     // Skip first line of headers in CSV file.
     getline(&line, &len, demographics);
-    // Initialize ArrayList of Location structures.
-    ArrayList *list = array_list_new();
+    
     while (getline(&line, &len, demographics) != -1)
     {
         // Declare Location structure.
         Location location = load_demographics(line);
-        array_add(list, location);
+        location_array_add(list, location);
+        for (i = 0; i < list->num_values; i++)
+        {
+            printf("County: %s | State: %s | Education.High School or Higher: %f\n", list->data[i].county, list->data[i].state, list->data[i].education[0]);
+        }
+        printf("\n");
     }
+    
 }
 
 FILE * validate_argument(char *file_name)
@@ -101,7 +113,7 @@ FILE * validate_argument(char *file_name)
     // Check if file exists.
     if (file == NULL)
     {
-        perror(argv[1]);
+        perror(file_name);
         exit(1);
     }
     return file;
@@ -110,13 +122,17 @@ FILE * validate_argument(char *file_name)
 int main(int argc, char *argv[])
 {
     // Check if valid number of arguments.
-    if (argc == 2)
+    if (argc == 3)
     {
         FILE * demographics = validate_argument(argv[1]);
-        FILE * operations = validate_argument(argv[2]);
+        // FILE * operations = validate_argument(argv[2]);
 
-        read_demographics(demographics);
+        // Initialize ArrayList of Location structures.
+        LocationArrayList *list = location_array_list_new();
+        read_demographics(demographics, list); 
+    } else {
+        fprintf(stderr, "Invalid number of arguments: %d", argc);
+        exit(1);
     }
-    fprintf(stderr, "Invalid number of arguments");
-    exit(1);
+    return 0;   
 }

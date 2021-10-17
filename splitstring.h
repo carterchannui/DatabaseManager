@@ -3,6 +3,6 @@
 
 #include "typedef.h"
 
-ArrayList * split(char string_pointer[], char *delim);
+StringArrayList * split(char string_pointer[], char * delim);
 
 #endif
