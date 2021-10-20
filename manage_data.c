@@ -160,7 +160,6 @@ int process_population_total(LocationArrayList *list)
         population_sum += list->data[i].population;
     }
 
-    printf("2014 population: %d\n", population_sum);
     return population_sum;
 }
 
@@ -480,8 +479,6 @@ int process_population(LocationArrayList *list, char *field)
             total_sub_population += ((list->data[i].persons_below_poverty_level / 100) * list->data[i].population);
         }
     }
-    StringArrayList *removed_nullchar_population = split(field, "\n");
-    printf("2014 %s population: %d\n", removed_nullchar_population->data[0], total_sub_population);
     return total_sub_population;
 }
 
@@ -505,9 +502,12 @@ void read_operations(FILE * operations, LocationArrayList *list)
         } else if (strstr("population\n", operations_list->data[0]) != NULL)
         {
             total_sub_population = process_population(list, operations_list->data[1]);
+            StringArrayList *removed_nullchar_population = split(operations_list->data[1], "\n");
+            printf("2014 %s population: %d\n", removed_nullchar_population->data[0], total_sub_population);
         } else if (strstr("population-total\n", operations_list->data[0]) != NULL) 
         {
             total_population = process_population_total(list);
+            printf("2014 population: %d\n", total_population);
         } else if (strstr("filter\n", operations_list->data[0]) != NULL)
         {
             StringArrayList *removed_newlinechar = split(operations_list->data[3], "\n");
