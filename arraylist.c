@@ -47,6 +47,24 @@ void location_array_add(LocationArrayList *arr, Location location)
     arr->num_values++;
 }
 
+void location_array_remove(LocationArrayList *list, int index)
+{
+    int i;
+    // Shift elements forward one index to remove selected element.
+    for (i = index; i < (list->num_values) - 1; i++)
+    {
+        list->data[i] = list->data[i + 1];
+    }
+    // Removes slot used for removed element.
+    list->length -= 1;
+    // Reallocates data to account for the removal of the desired element.
+    Location *new_data = realloc(list->data, (sizeof(Location) * list->length));
+    // Update list->data.
+    list->data = new_data;
+    // Update num_values.
+    list->num_values--;
+}
+
 void string_array_add(StringArrayList *arr, char string[])
 {
     // Check if more memory needs to be allocated.

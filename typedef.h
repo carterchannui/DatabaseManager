@@ -11,6 +11,8 @@ typedef struct
     int per_capita_income;
     float persons_below_poverty_level;
     int population;
+    // 0 for false, 1 for true.
+    size_t malformed_status;
 } Location;
 
 typedef struct 

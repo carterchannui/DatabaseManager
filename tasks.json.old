@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "command": "bash",
+    "isShellCommand": true,
+    "showOutput": "always",
+    "options": {
+        "cwd": "${workspaceRoot}"
+    },
+    "args": [
+        "-c"
+    ],
+    "tasks": [
+        {
+            "taskName": "build",
+            "suppressTaskName": true,
+            "isBuildCommand": true,
+            "args": ["make build"]
+        }
+    ]
+}
