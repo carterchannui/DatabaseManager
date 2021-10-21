@@ -50,11 +50,19 @@ void location_array_add(LocationArrayList *arr, Location location)
 void location_array_remove(LocationArrayList *list, int index)
 {
     int i;
+    
+    free(list->data[index].county);
+    free(list->data[index].state);
+    
     // Shift elements forward one index to remove selected element.
     for (i = index; i < (list->num_values) - 1; i++)
     {
         list->data[i] = list->data[i + 1];
     }
+
+    list->data[i].county = NULL;
+    list->data[i].state = NULL;
+
     // Removes slot used for removed element.
     list->length -= 1;
     // Reallocates data to account for the removal of the desired element.

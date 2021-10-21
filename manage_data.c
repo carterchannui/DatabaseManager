@@ -125,6 +125,8 @@ void read_demographics(FILE * demographics, LocationArrayList *list)
             fprintf(stderr, "Malformed entry on CSV file line: %d\n", cur_line);
         }
     }
+
+    free(line);
     fprintf(stdout, "Number of entries loaded: %d\n", num_entries);
 }
 
@@ -546,7 +548,8 @@ void read_operations(FILE * operations, LocationArrayList *list)
 
         free(operations_list->data);
         free(operations_list);
-    } 
+    }
+    free(line); 
 }
 
 FILE * validate_argument(char *file_name)
@@ -582,9 +585,13 @@ int main(int argc, char *argv[])
         // test_remove_data_1(list);
         fclose(demographics);
         fclose(operations);
+        for (int i = 0; i < list->num_values; i++)
+        {
+            free(list->data[i].county);
+            free(list->data[i].state);
+        }
         free(list->data);
         free(list);
-
     }
     else {
         fprintf(stderr, "Invalid number of arguments: %d", argc);
