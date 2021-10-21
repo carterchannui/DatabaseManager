@@ -94,6 +94,9 @@ Location load_demographics(char *line)
     // Load population data.
     location.population = atoi(list->data[38]);
 
+    free(list->data);
+    free(list);
+
     return location;
 }
 
@@ -123,7 +126,6 @@ void read_demographics(FILE * demographics, LocationArrayList *list)
         }
     }
     fprintf(stdout, "Number of entries loaded: %d\n", num_entries);
-    
 }
 
 void process_display(LocationArrayList *list)                 
@@ -178,6 +180,9 @@ void process_filter_state(LocationArrayList *list, char *state)
     
     StringArrayList *removed_nullchar_state = split(state, "\n");
     printf("Filter: state == %s (%zd entries)\n", removed_nullchar_state->data[0], list->num_values);
+
+    free(removed_nullchar_state->data);
+    free(removed_nullchar_state);
 }
 
 int validate_field(char *field)
@@ -488,6 +493,7 @@ void read_operations(FILE * operations, LocationArrayList *list)
     char *line = NULL;
     int total_population;
     int total_sub_population;
+    float percent;
 
     // Determine operation.
     while (getline(&line, &len, operations) != -1)
@@ -504,6 +510,9 @@ void read_operations(FILE * operations, LocationArrayList *list)
             total_sub_population = process_population(list, operations_list->data[1]);
             StringArrayList *removed_nullchar_population = split(operations_list->data[1], "\n");
             printf("2014 %s population: %d\n", removed_nullchar_population->data[0], total_sub_population);
+            
+            free(removed_nullchar_population->data);
+            free(removed_nullchar_population);
         } else if (strstr("population-total\n", operations_list->data[0]) != NULL) 
         {
             total_population = process_population_total(list);
@@ -512,6 +521,9 @@ void read_operations(FILE * operations, LocationArrayList *list)
         {
             StringArrayList *removed_newlinechar = split(operations_list->data[3], "\n");
             process_filter(list, operations_list->data[1], operations_list->data[2], strtof(removed_newlinechar->data[0], NULL));
+            
+            free(removed_newlinechar->data);
+            free(removed_newlinechar);
         } else if (strstr("filter-state\n", operations_list->data[0]) != NULL)
         {
             process_filter_state(list, operations_list->data[1]);
@@ -519,11 +531,21 @@ void read_operations(FILE * operations, LocationArrayList *list)
         {
             total_sub_population = process_population(list, operations_list->data[1]);
             total_population = process_population_total(list);
-            float percent = ((float)total_sub_population / total_population) * 100;
-
+            if (total_population != 0)
+            {
+                percent = ((float)total_sub_population / total_population) * 100;
+            } else {
+                percent = 0;
+            }
             StringArrayList *removed_newlinechar = split(operations_list->data[1], "\n");
             printf("2014 %s percentage: %f\n", removed_newlinechar->data[0], percent);
+
+            free(removed_newlinechar->data);
+            free(removed_newlinechar);
         }
+
+        free(operations_list->data);
+        free(operations_list);
     } 
 }
 
@@ -550,7 +572,6 @@ int main(int argc, char *argv[])
         // Initialize ArrayList of Location structures.
         LocationArrayList *list = location_array_list_new();
         read_demographics(demographics, list);
-
         read_operations(operations, list);
 
 
@@ -559,6 +580,10 @@ int main(int argc, char *argv[])
 
         // Test removal of Location at index 2.
         // test_remove_data_1(list);
+        fclose(demographics);
+        fclose(operations);
+        free(list->data);
+        free(list);
 
     }
     else {
