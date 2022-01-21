@@ -20,7 +20,7 @@ filter-state:<state>
 // Filter current working dataset by rates of education or employment.
 filter:<education>:<le/ge>:<percentage>
 
-// Display population of specific ethnicity, education or employment of the current working dataset.
+// Display population of specific ethnicity, education or employment of the working dataset.
 population:<ethnicity><education><employment>
 
 // Display percent of ethnicity, education, or employment of the working dataset.
