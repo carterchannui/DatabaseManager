@@ -23,7 +23,7 @@ filter:<education>:<le/ge>:<percentage>
 // Display population of specific ethnicity, education or employment of the current working dataset.
 population:<ethnicity><education><employment>
 
-// Display percent of ethnicity, education, or employment of the current working dataset.
+// Display percent of ethnicity, education, or employment of the working dataset.
 percent:<ethnicity><education><employment>
 
 // Display total 2014 population.
