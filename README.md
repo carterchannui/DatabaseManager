@@ -8,6 +8,8 @@ Utilize various operations and commands to derive meaning from the [CORGIS](http
 ./manage_data <CORGIS-Data.csv> <Operations-File.ops>
 ```
 
+![Expected Output Image](image1.png)
+
 ## Valid Operations File Commands
 The following displays the database manager's valid commands with proper syntax.
 ```
@@ -44,7 +46,7 @@ population-total
 #### Expected Output
 Given the example operations file the following image illustrates the expected output.
 
-![Expected Output Image](https://i.ibb.co/GdW4W40/Screen-Shot-2022-01-20-at-11-21-51-PM.png)
+![Expected Output Image](image1.png)
 
 
 
