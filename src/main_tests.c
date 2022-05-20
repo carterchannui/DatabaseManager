@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "typedef.h"
-#include "checkit.h"
-#include "arraylist.h"
+#include "include/typedef.h"
+#include "include/checkit.h"
+#include "include/arraylist.h"
 
 void test_load_data_1(LocationArrayList *list)
 {
@@ -80,3 +80,4 @@ void test_remove_data_1(LocationArrayList *list)
     checkit_double(list->data[2].persons_below_poverty_level, 18.1);
     checkit_int(list->data[2].population, 22506);
 }
+

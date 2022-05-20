@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "typedef.h"
-#include "arraylist.h"
-#include "splitstring.h"
-#include "main_tests.h"
+#include "include/typedef.h"
+#include "include/arraylist.h"
+#include "include/splitstring.h"
+#include "include/main_tests.h"
 
 char *remove_quotes(char *str)
 {

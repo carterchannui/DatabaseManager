@@ -1,8 +1,8 @@
 #define _BSD_SOURCE
 #include <stdio.h>
 #include <string.h>
-#include "typedef.h"
-#include "arraylist.h"
+#include "include/typedef.h"
+#include "include/arraylist.h"
 
 StringArrayList * split(char string_pointer[], char *delim)
 {
