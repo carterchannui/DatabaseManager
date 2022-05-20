@@ -593,7 +593,7 @@ int main(int argc, char *argv[])
         free(list);
     }
     else {
-        fprintf(stderr, "Invalid number of arguments: %d", argc);
+        fprintf(stderr, "Invalid number of arguments: %d\n", argc);
         exit(1);
     }
     return 0;
