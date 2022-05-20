@@ -6,3 +6,4 @@ void test_load_data_1(LocationArrayList * list);
 void test_remove_data_1(LocationArrayList *list);
 
 #endif
+
