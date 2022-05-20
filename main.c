@@ -5,7 +5,7 @@
 #include "typedef.h"
 #include "arraylist.h"
 #include "splitstring.h"
-#include "manage_data_tests.h"
+#include "main_tests.h"
 
 
 char *remove_quotes(char *str)
