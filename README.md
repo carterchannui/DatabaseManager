@@ -5,7 +5,7 @@ Utilize various operations and commands to derive meaning from the [CORGIS](http
 ## Usage
 
 ```
-./manage_data <CORGIS-Data.csv> <Operations-File.ops>
+./main <data/sample_data.csv> <ops/sample_operation.ops>
 ```
 
 ![Expected Output Image](image.png)
@@ -34,13 +34,9 @@ population-total
 
 #### Example Operations File
 ```
-filter-state:AL
-population-total
-filter:Education.Bachelor's Degree or Higher:le:12.000000
-population:Ethnicities.Hispanic or Latino
-percent:Ethnicities.Hispanic or Latino
+filter:Education.High School or Higher:le:80.000000
+percent:Income.Persons Below Poverty Level
 display
-population-total
 ```
 
 #### Expected Output
