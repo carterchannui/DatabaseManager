@@ -7,7 +7,6 @@
 #include "splitstring.h"
 #include "main_tests.h"
 
-
 char *remove_quotes(char *str)
 {
     // Check if string doesn't exist or is of length 2 (just quotes).
