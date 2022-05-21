@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #ifndef TYPEDEF_H
 #define TYPEDEF_H
 

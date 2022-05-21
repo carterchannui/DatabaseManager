@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "include/typedef.h"
-#include "include/checkit.h"
-#include "include/arraylist.h"
+#include "../include/typedef.h"
+#include "../include/checkit.h"
+#include "../include/arraylist.h"
 
 void test_load_data_1(LocationArrayList *list)
 {

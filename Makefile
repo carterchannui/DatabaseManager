@@ -13,16 +13,16 @@ all : $(MAIN)
 $(MAIN) : $(OBJS) $(DEPS)
 	$(CC) $(CFLAGS) -o $(MAIN) $(OBJS)
 
-$(OBJ_DIR)/main.o : $(SRC) $(DEPS)
+$(OBJ_DIR) : $(SRC) $(DEPS)
 	$(CC) $(CFLAGS) -c main.c
 
-$(OBJ_DIR)/arraylist.o : $(SRC) $(DEPS)
+$(OBJ_DIR) : $(SRC) $(DEPS)
 	$(CC) $(CFLAGS) -c arraylist.c
 
-$(OBJ_DIR)/splitstring.o : $(SRC) $(DEPS)
+$(OBJ_DIR) : $(SRC) $(DEPS)
 	$(CC) $(CFLAGS) -c splitstring.c
 
-$(OBJ_DIR)/main_tests.o: $(SRC) $(DEPS)
+$(OBJ_DIR): $(SRC) $(DEPS)
 	$(CC) $(CFLAGS) -c main_tests.c
 
 clean :

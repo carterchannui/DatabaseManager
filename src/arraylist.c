@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "include/typedef.h"
+#include "../include/typedef.h"
 
 StringArrayList * string_array_list_new()
 {
