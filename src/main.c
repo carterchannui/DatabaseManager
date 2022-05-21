@@ -86,10 +86,13 @@ Location load_demographics(char *line)
 
     // Load "Income.Median Houseold Income" data.
     location.median_household_income = atoi(list->data[25]);
+
     // Load "Income.Per Capita Income" data.
     location.per_capita_income = atoi(list->data[26]);
+
     // Load "Income.Persons Below Poverty Level" data.
     location.persons_below_poverty_level = strtof(list->data[27], NULL);
+
     // Load population data.
     location.population = atoi(list->data[38]);
 
@@ -135,6 +138,7 @@ void process_display(LocationArrayList *list)
     for (i = 0; i < list->num_values; i++)
     {
         printf("County: %s\n", list->data[i].county);
+
         printf("    State:                                                           %s\n", list->data[i].state);
         printf("    Education.Bachelor's Degree or Higher:                           %f\n", list->data[i].education[0]);
         printf("    Education.High School or Higher:                                 %f\n", list->data[i].education[1]);
@@ -215,21 +219,6 @@ int validate_field(char *field)
     fprintf(stderr, "Invalid field for operation");
     exit(1);
 }
-
-// 0  Education.Bachelor's Degree or Higher 
-// 1  Education.High School or Higher 
-// 2  Ethnicities.American Indian and Alaska Native Alone 
-// 3  Ethnicities.Asian Alone
-// 4  Ethnicities.Black Alone
-// 5  Ethnicities.Hispanic or Latino
-// 6  Ethnicities.Native Hawaiian and Other Pacific Islander Alone
-// 7  Ethnicities.Two or More Races
-// 8  Ethnicities.White Alone
-// 9  Ethnicities.White Alone, not Hispanic or Latino
-// 10 Income.Median Houseold Income
-// 11 Income.Per Capita Income
-// 12 Income.Persons Below Poverty Level
-// 13 Population.2014 Population
 
 void process_filter(LocationArrayList *list, char *field, char *comparison, float number)
 { 
@@ -576,19 +565,15 @@ int main(int argc, char *argv[])
         read_demographics(demographics, list);
         read_operations(operations, list);
 
-
-        // Test loading of perfect small.csv data.
-        // test_load_data_1(list);
-
-        // Test removal of Location at index 2.
-        // test_remove_data_1(list);
         fclose(demographics);
         fclose(operations);
+
         for (int i = 0; i < list->num_values; i++)
         {
             free(list->data[i].county);
             free(list->data[i].state);
         }
+
         free(list->data);
         free(list);
     }
@@ -596,6 +581,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Invalid number of arguments: %d\n", argc);
         exit(1);
     }
+
     return 0;
 }
 
